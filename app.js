@@ -20,9 +20,27 @@ function stonk() {
     return __awaiter(this, void 0, void 0, function* () {
         const response = yield fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=GME&apikey=NF4D92V4LLY53NLT`);
         const data = yield response.json();
-        console.log(data['Time Series (Daily)'][currentDate]['4. close']);
         let daily = document.createElement('p').innerText = data['Time Series (Daily)'][currentDate]['4. close'] + '$';
         mainDiv.append(daily);
     });
 }
-stonk();
+;
+function callEveryHour() {
+    setInterval(stonk(), 1000 * 60 * 60 * 24);
+}
+callEveryHour();
+let infoDiv = document.querySelector('.info-box');
+infoDiv.innerHTML = "";
+function stonkInfo() {
+    return __awaiter(this, void 0, void 0, function* () {
+        const response = yield fetch(`https://www.alphavantage.co/query?function=OVERVIEW&symbol=GME&apikey=NF4D92V4LLY53NLT`);
+        const data = yield response.json();
+        let industry = data['Industry'];
+        let description = data['Description'];
+        let yearHigh = data['52WeekHigh'];
+        let yearLow = data['52WeekLow'];
+        infoDiv.innerHTML = `<p>GME are in the ${industry} industry </p> <br><p>${description}</p> <br><p> All time high last year was : ${yearHigh}$ ↗️ </p> <br><p> All time low last year was : ${yearLow}$ ↘️ </p> <br>`;
+    });
+}
+;
+stonkInfo();

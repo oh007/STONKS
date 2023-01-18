@@ -12,14 +12,28 @@ let currentDate = `${year}-0${month}-${day}`;
 async function stonk(){
     const response = await fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=GME&apikey=NF4D92V4LLY53NLT`);
     const data =await response.json();
+    let daily = document.createElement('p').innerText= data['Time Series (Daily)'][currentDate]['4. close']+'$';
+    mainDiv.append(daily);
+};
+ function callEveryHour():void {
+    setInterval(stonk(), 1000 * 60*60*24);
+
+}
+callEveryHour();
+
+let infoDiv = document.querySelector('.info-box')as HTMLHeadElement;
+    infoDiv.innerHTML = ""
+async function stonkInfo(){
+    const response = await fetch(`https://www.alphavantage.co/query?function=OVERVIEW&symbol=GME&apikey=NF4D92V4LLY53NLT`);
+    const data =await response.json();
+    let industry =data['Industry'];
+    let description =data['Description'];
+    let yearHigh =data['52WeekHigh'];
+    let yearLow = data['52WeekLow'];
 
 
-    
- console.log(data['Time Series (Daily)'][currentDate]['4. close']);
+    infoDiv.innerHTML=`<p>GME are in the ${industry} industry </p> <br><p>${description}</p> <br><p> All time high last year was : ${yearHigh}$ ↗️ </p> <br><p> All time low last year was : ${yearLow}$ ↘️ </p> <br>`;
+};
 
- let daily = document.createElement('p').innerText= data['Time Series (Daily)'][currentDate]['4. close']+'$';
 
- mainDiv.append(daily);
-
-} 
-stonk();
+stonkInfo();
