@@ -2,6 +2,7 @@ body {
   background-color: #12279E;
   display: flex;
   flex-direction: column;
+  font-family: 'Oswald', sans-serif;
 }
 /* Style the header with a grey background and some padding */
 .header {
