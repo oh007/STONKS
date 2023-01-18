@@ -1,0 +1,29 @@
+body {
+  background-image: url("images/nihaw.jpeg");
+  background-color: #cccccc;
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+
+h1{
+    color: aliceblue;
+}
+
+p{
+    color: aliceblue;
+}
+
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  img {
+    width: 200px;
+    height: 150px;
+  }
+
+  body {
+    background-image: url("images/nihaw-phone.jpeg");
+    background-color: #cccccc;
+    background-repeat: no-repeat;
+    background-size: auto;
+  }
+}
